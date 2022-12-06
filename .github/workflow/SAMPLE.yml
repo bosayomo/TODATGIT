@@ -1,18 +1,15 @@
-name: Sample workflow 
-
-on: [push]
-
-jobs: 
-  run-github-actions:
-    runs-on: uduntu-latest 
-    steps: 
-      - name: simple JS Action 
-        id: greet 
-        uses: action/hello-world-javascript-action@v1 
-        With:
-          who-to-greet: Blessing 
-      - name: Log Greeting Time 
-        run: echo "${{ steps.greet.outputs.time }}" 
-
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: |
+          date > generated.txt
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "generated"
+          git push
 
           
